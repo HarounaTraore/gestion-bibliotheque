@@ -1,24 +1,62 @@
 <template>
   <div>
-    <h3>Ajouter un nouveau Membre</h3>
-    <form @submit.prevent="ajouterMembre">
+    <h3>Ajouter un nouveau Pret</h3>
+    <form @submit.prevent="ajouterPret">
       <div class="mb-3">
-        <label for="nom" class="form-label">Nom</label>
+        <div class="mb-3">
+          <label for="idPret" class="form-label">Id du Pret</label>
+          <input
+            type="number"
+            class="form-control"
+            v-model="nouveauPret.id"
+            name="idPret"
+            required
+          />
+        </div>
+
+        <select name="idLivre" id="idLivre" v-model="nouveauPret.idLivre">
+          <option value="">Choisir un livre</option>
+          <option value="1">1</option>
+          <option value="2">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <select
+          name="idLivre"
+          id="idLivre"
+          v-model="nouveauPret.idMembre"
+          required
+        >
+          <option value="">Id du memebre</option>
+          <option value="1">1</option>
+          <option value="2">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="datePret" class="form-label">Date du Prêt</label>
         <input
-          type="text"
+          type="date"
           class="form-control"
-          id="nom"
-          v-model="nouveauMembre.nom"
+          name="datePret"
+          v-model="nouveauPret.datePret"
           required
         />
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
+        <label for="dateRetour" class="form-label">Date du Retour</label>
         <input
-          type="email"
+          type="date"
           class="form-control"
-          id="email"
-          v-model="nouveauMembre.email"
+          name="dateRetour"
+          v-model="nouveauPret.dateRetour"
           required
         />
       </div>
@@ -26,31 +64,33 @@
     </form>
   </div>
 </template>
-    
-  <script setup>
+
+<script setup>
 import { ref, defineEmits } from "vue";
 
 const emit = defineEmits();
 
-const nouveauMembre = ref({
-  nom: "",
-  email: "",
+const nouveauPret = ref({
+  id: "",
+  idLivre: "",
+  idMembre: "",
+  datePret: "",
+  dateRetour: "",
 });
 
-const ajouterMembre = () => {
-  const membre = {
-    ...nouveauMembre.value,
+const ajouterPret = () => {
+  const Pret = {
+    ...nouveauPret.value,
   };
 
-  emit("membre-ajoute", membre);
+  emit("pret-ajoute", Pret);
 
-  nouveauMembre.value = {
-    nom: "",
-    email: "",
+  nouveauPret.value = {
+    idLivre: "",
+    idMembre: "",
   };
 };
 </script>
-    
-  <style scoped>
+
+<style scoped>
 </style>
-  

@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="container">
     <h2>Liste des prets</h2>
-    <table class="table table-hover">
+    <table class="table text-center table-hover">
       <thead>
         <tr>
-          <th>titres</th>
+          <th>Id</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="pret in prets" :key="pret.id">
-          <td>{{ pret.titre }}</td>
+          <td>{{ pret.id }}</td>
           <td>
             <button class="btn btn-sm m-2" @click="voirDetails(pret)">
               <i class="fas fa-eye"></i>
@@ -33,7 +33,7 @@
     </table>
 
     <button class="btn btn-primary" @click="ajouterPret = !ajouterPret">
-      Ajouter un pret
+      nouveau Prêt
     </button>
 
     <AjouterPret v-if="ajouterPret" @pret-ajoute="ajouterPretAListe" />
@@ -49,10 +49,16 @@
         <h5 class="card-title">Détails du pret</h5>
         <p class="card-text"><strong>Id:</strong> {{ pretSelectionne.id }}</p>
         <p class="card-text">
-          <strong>Titre:</strong> {{ pretSelectionne.titre }}
+          <strong>Id Livre:</strong> {{ pretSelectionne.idLivre }}
         </p>
         <p class="card-text">
-          <strong>Email:</strong> {{ pretSelectionne.email }}
+          <strong>Id Membre:</strong> {{ pretSelectionne.idMembre }}
+        </p>
+        <p class="card-text">
+          <strong>Date du prêt:</strong> {{ pretSelectionne.datePret }}
+        </p>
+        <p class="card-text">
+          <strong>Date de retour:</strong> {{ pretSelectionne.dateRetour }}
         </p>
         <button class="btn btn-secondary" @click="pretSelectionne = null">
           Fermer
@@ -68,9 +74,34 @@ import AjouterPret from "./AjoutePret.vue";
 import ModifierPret from "./ModifiePret.vue";
 
 const prets = ref([
-  { id: 2, livre: "Livre 3", email: "email 2" },
-  { id: 3, livre: "Livre 3", email: "email 3" },
-  { id: 1, livre: "Livre 1", email: "email 1" },
+  {
+    id: 1,
+    idLivre: 1,
+    idMembre: 1,
+    datePret: "2024-08-05",
+    dateRetour: "2024-08-10",
+  },
+  {
+    id: 2,
+    idLivre: 2,
+    idMembre: 2,
+    datePret: "2024-08-05",
+    dateRetour: "2024-08-10",
+  },
+  {
+    id: 3,
+    idLivre: 3,
+    idMembre: 3,
+    datePret: "2024-08-05",
+    dateRetour: "2024-08-10",
+  },
+  {
+    id: 4,
+    idLivre: 4,
+    idMembre: 4,
+    datePret: "2024-08-05",
+    dateRetour: "2024-08-10",
+  },
 ]);
 
 const pretSelectionne = ref(null);
@@ -103,6 +134,12 @@ const ajouterPretAListe = (nouveaupret) => {
 };
 </script>
   
-  <style scoped>
+  <style >
+.tableau {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
 </style>
   
