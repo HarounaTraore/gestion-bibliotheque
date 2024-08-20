@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <form class="container p-4 border border-primary">
+  <form class="container p-4 mt-3 border border-primary">
     <div class="mb-3 mt-3">
       <label for="nom" class="form-label">Nom:</label>
       <input
@@ -14,12 +14,12 @@
       />
     </div>
     <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
+      <label for="email" class="form-label">email:</label>
       <input
         type="email"
         class="form-control"
         id="email"
-        placeholder="Entrer l'email du membre"
+        placeholder="Entrer l'email du memebre"
         name="email"
       />
     </div>

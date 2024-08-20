@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <form class="container p-4 border border-primary">
+  <form class="container p-4 mt-3 border border-primary">
     <div class="mb-3 mt-3">
       <label for="nom" class="form-label">Nom:</label>
       <input
@@ -14,13 +14,13 @@
       />
     </div>
     <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
+      <label for="hauteur" class="form-label">Hauteur:</label>
       <input
-        type="email"
+        type="text"
         class="form-control"
-        id="email"
-        placeholder="Entrer l'email du membre"
-        name="email"
+        id="hauteur"
+        placeholder="Entrer l'auteur du livre"
+        name="hauteur"
       />
     </div>
     <button type="submit" class="btn btn-primary">Soumettre</button>
