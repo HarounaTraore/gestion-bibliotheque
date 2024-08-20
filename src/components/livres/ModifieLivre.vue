@@ -10,7 +10,7 @@
           <label for="auteur" class="form-label">Auteur</label>
           <input type="text" id="auteur" v-model="livreModifie.auteur" class="form-control" required />
         </div>
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
       </form>
     </div>
   </template>
