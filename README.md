@@ -73,5 +73,6 @@ Avant de commencer, assurez-vous d'avoir installé l'élément suivant :
 
 ## Auteurs
 
-[Abdrahmane Thimbo](https://github.com/AbderahmaneThimbo)
+[Abderahman Thimbo](https://github.com/AbderahmaneThimbo)
+
 [Harouna Traoré](https://github.com/HarounaTraore)
