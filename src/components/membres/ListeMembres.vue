@@ -1,23 +1,30 @@
 <template>
-  <div>
-    <h2>Liste des membres</h2>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Liste des membres</h2>
     <table class="table table-hover">
-      <thead>
+      <thead class="table-dark">
         <tr>
-          <th>Noms</th>
-          <th>Actions</th>
+          <th>Nom</th>
+          <th class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="membre in membres" :key="membre.id">
           <td>{{ membre.nom }}</td>
-          <td>
-            <button class="btn btn-sm m-2" @click="voirDetails(membre)">
+          <td class="text-center">
+            <button
+              class="btn btn-info btn-sm me-2"
+              @click="voirDetails(membre)"
+              data-bs-toggle="modal"
+              data-bs-target="#voirMembreModal"
+            >
               <i class="fas fa-eye"></i>
             </button>
             <button
-              class="btn btn-warning btn-sm m-2"
+              class="btn btn-warning btn-sm me-2"
               @click="ouvrirEdition(membre)"
+              data-bs-toggle="modal"
+              data-bs-target="#editerMembreModal"
             >
               <i class="fas fa-edit"></i>
             </button>
@@ -32,79 +39,167 @@
       </tbody>
     </table>
 
-    <button class="btn btn-primary" @click="ajouterMembre = !ajouterMembre">
+    <button
+      type="button"
+      class="btn btn-primary mt-4"
+      data-bs-toggle="modal"
+      data-bs-target="#ajoutMembreModal"
+    >
       Ajouter un membre
     </button>
 
-    <AjouterMembre v-if="ajouterMembre" @membre-ajoute="ajouterMembreAListe" />
+    <div
+      class="modal fade"
+      id="ajoutMembreModal"
+      tabindex="-1"
+      aria-labelledby="ajoutMembreModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ajoutMembreModalTitle">
+              Modifier les informations du membre
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <AjouterMembre @membre-ajoute="ajouterMembreAListe" />
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <ModifierMembre
-      v-if="membreAEditer"
-      :membre="membreAEditer"
-      @membre-modifie="mettreAJourMembre"
-    />
+    <div
+      class="modal fade"
+      id="editerMembreModal"
+      tabindex="-1"
+      aria-labelledby="editerMembreModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editerMembreModalTitle">
+              Modifier le Membre
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ModifierMembre
+              v-if="membreAEditer"
+              :membre="membreAEditer"
+              @membre-modifie="mettreAJourMembre"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <div v-if="membreSelectionne" class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title">Détails du membre</h5>
-        <p class="card-text"><strong>Id:</strong> {{ membreSelectionne.id }}</p>
-        <p class="card-text">
-          <strong>Nom:</strong> {{ membreSelectionne.nom }}
-        </p>
-        <p class="card-text">
-          <strong>Email:</strong> {{ membreSelectionne.email }}
-        </p>
-        <button class="btn btn-secondary" @click="membreSelectionne = null">
-          Fermer
-        </button>
+    <div
+      class="modal fade"
+      id="voirMembreModal"
+      tabindex="-1"
+      aria-labelledby="voirMembreModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="voirMembreModalTitle">
+              Détails du Membre
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Id:</strong> {{ membreSelectionne?.id }}</p>
+            <p><strong>Nom:</strong> {{ membreSelectionne?.nom }}</p>
+            <p><strong>Email:</strong> {{ membreSelectionne?.email }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref } from "vue";
-import AjouterMembre from "./AjouteMembre.vue";
-import ModifierMembre from "./ModifieMembre.vue";
+import AjouterMembre from "./AjouterMembre.vue";
+import ModifierMembre from "./ModifierMembre.vue";
 
 const membres = ref([
-  { id: 1, nom: "membre 1", email: "email 1" },
-  { id: 2, nom: "membre 2", email: "email 2" },
-  { id: 3, nom: "membre 3", email: "email 3" },
+  { id: 1, nom: "Membre 1", email: "email1@example.com" },
+  { id: 2, nom: "Membre 2", email: "email2@example.com" },
+  { id: 3, nom: "Membre 3", email: "email3@example.com" },
 ]);
 
 const membreSelectionne = ref(null);
+const membreAEditer = ref(null);
 
 const voirDetails = (membre) => {
   membreSelectionne.value = membre;
 };
 
 const ouvrirEdition = (membre) => {
-  membreAEditer.value = membre;
+  membreAEditer.value = { ...membre };
 };
 
 const supprimerMembre = (id) => {
   membres.value = membres.value.filter((membre) => membre.id !== id);
 };
 
-const ajouterMembre = ref(false);
-const membreAEditer = ref(null);
+const ajouterMembreAListe = (nouveauMembre) => {
+  nouveauMembre.id = membres.value.length + 1;
+  membres.value.push(nouveauMembre);
+};
 
 const mettreAJourMembre = (membreModifie) => {
   const index = membres.value.findIndex(
     (membre) => membre.id === membreModifie.id
   );
   if (index !== -1) {
-    membres.value[index] = membreModifie;
+    membres.value[index] = { ...membreModifie };
   }
-  membreAEditer.value = null;
-};
-
-const ajouterMembreAListe = (nouveauMembre) => {
-  membres.value.push(nouveauMembre);
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
+h2 {
+  color: #495057;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn {
+  font-size: 0.875rem;
+}
+
+.modal-content {
+  border-radius: 0.5rem;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+}
+
+.modal-title {
+  color: #343a40;
+}
 </style>
-  

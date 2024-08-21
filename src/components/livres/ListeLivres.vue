@@ -1,141 +1,57 @@
 <template>
-  <div>
-    <h2>Liste des Livres</h2>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Liste des Livres</h2>
     <table class="table table-hover">
-      <thead>
+      <thead class="table-dark">
         <tr>
           <th>Titre</th>
-          <th>Actions</th>
+          <th>Auteur</th>
+          <th class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="livre in livres" :key="livre.id">
           <td>{{ livre.titre }}</td>
-          <td>
+          <td>{{ livre.auteur }}</td>
+          <td class="text-center">
             <button
-              class="btn btn-sm m-2"
+              class="btn btn-info btn-sm me-2"
               @click="voirDetails(livre)"
               data-bs-toggle="modal"
-              data-bs-target="#voirLivreModal">
+              data-bs-target="#voirLivreModal"
+            >
               <i class="fas fa-eye"></i>
             </button>
             <button
-              class="btn btn-warning btn-sm m-2"
+              class="btn btn-warning btn-sm me-2"
               @click="ouvrirEdition(livre)"
               data-bs-toggle="modal"
-              data-bs-target="#editerLivreModal">
+              data-bs-target="#editerLivreModal"
+            >
               <i class="fas fa-edit"></i>
             </button>
             <button
               class="btn btn-danger btn-sm"
-              @click="supprimerLivre(livre.id)">
+              @click="supprimerLivre(livre.id)"
+            >
               <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    
-    <AjouterLivre v-if="ajouterLivre" @livre-ajoute="ajouterLivreAListe" />
 
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#ajoutLivreModal">
-      Ajouter un livre
-    </button>
-    <div
-      class="modal fade"
-      id="ajoutLivreModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="ajoutLivreModalTitle"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <AjouterLivre @livre-ajoute="ajouterLivreAListe" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <AjouterLivre @livre-ajoute="ajouterLivreAListe" />
 
-   
-<!-- 
-    <ModifierLivre
-      v-if="livreAEditer"
-      :livre="livreAEditer"
-      @livre-modifie="mettreAJourLivre"/> -->
-
-      <div
-      class="modal fade"
-      id="editerLivreModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="editerLivreModalTitle"
-      aria-hidden="true"
-    > <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editerLivreModalTitle">
-              Modifier le Livre
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="sauvegarderModifications">
-              <div class="mb-3">
-                <label for="titre" class="form-label">Titre</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="titre"
-                  v-model="livreAEditer.titre"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="auteur" class="form-label">Auteur</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="auteur"
-                  v-model="livreAEditer.auteur"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">
-                Sauvegarder
-              </button>
-            </form>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
-
+    <!-- Modal pour voir les détails d'un livre -->
     <div
       class="modal fade"
       id="voirLivreModal"
       tabindex="-1"
-      role="dialog"
       aria-labelledby="voirLivreModalTitle"
-      aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document">
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="voirLivreModalTitle">
@@ -156,15 +72,33 @@
         </div>
       </div>
     </div>
-  </div>
 
-  
+    <!-- Modal pour éditer un livre -->
+    <div
+      class="modal fade"
+      id="editerLivreModal"
+      tabindex="-1"
+      aria-labelledby="editerLivreModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <ModifierLivre
+              :livre="livreAEditer"
+              @livre-modifie="mettreAJourLivre"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-  
-  <script setup>
+
+<script setup>
 import { ref } from "vue";
-import AjouterLivre from "./AjouteLivre.vue";
-import ModifierLivre from "./ModifieLivre.vue";
+import AjouterLivre from "./AjouterLivre.vue";
+import ModifierLivre from "./ModifierLivre.vue";
 
 const livres = ref([
   { id: 1, titre: "Livre 1", auteur: "Auteur 1" },
@@ -172,38 +106,63 @@ const livres = ref([
 ]);
 
 const livreSelectionne = ref(null);
+const livreAEditer = ref(null);
 
 const voirDetails = (livre) => {
   livreSelectionne.value = livre;
 };
 
 const ouvrirEdition = (livre) => {
-  livreAEditer.value = livre;
+  livreAEditer.value = { ...livre }; // Passer une copie du livre pour l'édition
 };
 
 const supprimerLivre = (id) => {
   livres.value = livres.value.filter((livre) => livre.id !== id);
 };
 
-const ajouterLivre = ref(false);
-const livreAEditer = ref(null);
+const ajouterLivreAListe = (nouveauLivre) => {
+  if (nouveauLivre.auteur && nouveauLivre.titre) {
+    nouveauLivre.id = livres.value.length + 1;
+    livres.value.push(nouveauLivre);
+  }
+};
 
 const mettreAJourLivre = (livreModifie) => {
   const index = livres.value.findIndex((livre) => livre.id === livreModifie.id);
   if (index !== -1) {
-    livres.value[index] = livreModifie;
+    livres.value[index] = { ...livreModifie };
   }
   livreAEditer.value = null;
-  };
-
-  
-
-const ajouterLivreAListe = (nouveauLivre) => {
-  livres.value.push(nouveauLivre);
+  // Fermer le modal
+  const modal = new bootstrap.Modal(
+    document.getElementById("editerLivreModal")
+  );
+  modal.hide();
 };
 </script>
-  
-<style scoped>
 
+<style scoped>
+h2 {
+  color: #495057;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn {
+  font-size: 0.875rem;
+}
+
+.modal-content {
+  border-radius: 0.5rem;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+}
+
+.modal-title {
+  color: #343a40;
+}
 </style>
-  

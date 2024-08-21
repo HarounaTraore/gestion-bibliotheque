@@ -1,6 +1,5 @@
 <template>
   <div v-if="membre">
-    <h3>Modifier le membre</h3>
     <form @submit.prevent="modifierMembre">
       <div class="mb-3">
         <label for="nom" class="form-label">Nom</label>
@@ -15,7 +14,7 @@
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input
-          type="text"
+          type="email"
           id="email"
           v-model="membreModifie.email"
           class="form-control"
@@ -28,9 +27,9 @@
     </form>
   </div>
 </template>
-  
-  <script setup>
-import { ref, watch } from "vue";
+
+<script setup>
+import { ref, watch, defineProps, defineEmits } from "vue";
 
 const props = defineProps({
   membre: Object,
@@ -51,7 +50,7 @@ const modifierMembre = () => {
   emit("membre-modifie", { ...membreModifie.value });
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
+/* Ajoutez des styles si nécessaire */
 </style>
-  
