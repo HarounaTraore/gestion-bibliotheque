@@ -65,7 +65,7 @@ Avant de commencer, assurez-vous d'avoir installé l'élément suivant :
 
   - `components/` : Contient les dossiers livres, membres et prets, chaque dossier contient trois composants.
 
-    - `Liste__.vue`: composant parent pour chaque module et il contient la logique de suppression d'affichage et la suppression
+    - `Liste__.vue`: composant parent pour chaque module et il contient la logique d'affichage et la suppression
     - `Ajouter___.vue`: composant contenant la gestion d'ajout
     - `Modifier___.vue`: composant contenant la gestion de modification
 
