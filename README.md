@@ -40,9 +40,12 @@ Avant de commencer, assurez-vous d'avoir installé l'élément suivant :
 
    ```bash
    git clone https://github.com/HarounaTraore/gestion-bibliotheque.git
-   gestion-bibliotheque
    ```
 
+   ```bash
+   cd gestion-bibliotheque
+   ```
+   
 2. **Installer les dépendances** :
 
    ```bash
