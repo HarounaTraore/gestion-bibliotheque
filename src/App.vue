@@ -6,7 +6,8 @@ import { RouterLink, RouterView } from "vue-router";
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
-        <a class="navbar-brand" href="#"><img src="./assets/img.png" alt=""></a>
+        <RouterLink class="nav-link" to="/"><img src="./assets/img.png" alt=""></RouterLink>
+        
         <button
           class="navbar-toggler"
           type="button"
@@ -36,12 +37,13 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
   <div class="container contenu">
     <RouterView />
+    
   </div>
 </template>
 
 <style scoped>
 img{
-  width: 90px;
+  width: 70px;
 }
 </style> 
 
